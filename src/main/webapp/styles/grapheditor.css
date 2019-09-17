@@ -1438,3 +1438,13 @@ html td.mxWindowTitle {
 	top: 5px;
 	right: 5px;
 }
+
+.geDataContainer {
+	width: 240px;
+	background: #4d90fe;
+	z-index: 100;
+	position: absolute;
+	right:0px;
+	top:101px;
+	height: 81.5%;
+}

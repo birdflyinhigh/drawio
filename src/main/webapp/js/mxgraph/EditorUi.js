@@ -4,6 +4,8 @@
 /**
  * Constructs a new graph editor
  */
+
+
 EditorUi = function(editor, container, lightbox)
 {
 	mxEventSource.call(this);
@@ -3061,11 +3063,49 @@ EditorUi.prototype.createTabContainer = function()
 	return null;
 };
 
+
+
+EditorUi.prototype.createDataContainer = function()
+{
+	let container = this.createDiv('geDataContainer');
+
+
+	var request = new XMLHttpRequest(); // 新建XMLHttpRequest对象
+
+	request.onreadystatechange = function () { // 状态发生变化时，函数被回调
+		if (request.readyState === 4) { // 成功完成
+			// 判断响应结果:
+			if (request.status === 200) {
+				// 成功，通过responseText拿到响应的文本:
+				console.log(request.responseText);
+				return
+			} else {
+				// 失败，根据响应码判断失败原因:
+				return
+			}
+		} else {
+			// HTTP请求还在继续...
+		}
+	};
+
+	container.onclick = ()=>{
+		const url = 'http://172.17.51.6:8087/zbjcheck';
+		request.open('GET', url)
+		request.send()
+		alert('fuckerd')
+
+
+	};
+	return container
+};
+
+
 /**
  * Creates the required containers.
  */
 EditorUi.prototype.createDivs = function()
 {
+	this.dataContainer = this.createDataContainer('geDataContainer');
 	this.menubarContainer = this.createDiv('geMenubarContainer');
 	this.toolbarContainer = this.createDiv('geToolbarContainer');
 	this.sidebarContainer = this.createDiv('geSidebarContainer');
@@ -3203,6 +3243,8 @@ EditorUi.prototype.createUi = function()
 			this.refresh();
 		}));
 	}
+
+	this.container.appendChild(this.dataContainer);
 };
 
 /**
