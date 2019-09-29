@@ -480,15 +480,27 @@ Format.prototype.refresh = function()
 		label.style.backgroundColor = this.inactiveTabBackgroundColor;
 		label.style.borderLeftWidth = '1px';
 		label.style.cursor = 'pointer';
-		label.style.width = (containsLabel) ? '50%' : '33.3%';
-		label.style.width = (containsLabel) ? '50%' : '33.3%';
+		label.style.width = (containsLabel) ? '50%' : '25%';
 		var label2 = label.cloneNode(false);
 		var label3 = label2.cloneNode(false);
+		var label4 = label3.cloneNode(false);
 
 		// Workaround for ignored background in IE
 		label2.style.backgroundColor = this.inactiveTabBackgroundColor;
 		label3.style.backgroundColor = this.inactiveTabBackgroundColor;
-		
+		label4.style.backgroundColor = this.inactiveTabBackgroundColor;
+
+		// Data
+		mxUtils.write(label4, 'Data');
+		div.appendChild(label4);
+
+		var dataPanel = div.cloneNode(false);
+		dataPanel.style.display = 'none';
+		this.panels.push(new DataPanel(this, ui, dataPanel));
+		this.container.appendChild(dataPanel);
+
+
+
 		// Style
 		if (containsLabel)
 		{
@@ -2484,6 +2496,23 @@ ArrangePanel.prototype.addEdgeGeometry = function(container)
 	graph.getModel().addListener(mxEvent.CHANGE, listener);
 	this.listeners.push({destroy: function() { graph.getModel().removeListener(listener); }});
 	listener();
+};
+
+// add the data pannel
+
+
+DataPanel = function(format, editorUi, container)
+{
+	BaseFormatPanel.call(this, format, editorUi, container);
+	this.init();
+};
+
+mxUtils.extend(DataPanel, BaseFormatPanel);
+
+DataPanel.prototype.init = function()
+{
+	this.container.style.borderBottom = 'none';
+	// this.addFont(this.container);
 };
 
 /**
@@ -5766,3 +5795,6 @@ DiagramFormatPanel.prototype.destroy = function()
 		this.gridEnabledListener = null;
 	}
 };
+
+
+
