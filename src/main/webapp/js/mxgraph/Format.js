@@ -483,7 +483,7 @@ Format.prototype.refresh = function()
 		label.style.width = (containsLabel) ? '50%' : '25%';
 		var label2 = label.cloneNode(false);
 		var label3 = label2.cloneNode(false);
-		var label4 = label3.cloneNode(false);
+		var label4 = label.cloneNode(false);
 
 		// Workaround for ignored background in IE
 		label2.style.backgroundColor = this.inactiveTabBackgroundColor;
@@ -495,7 +495,6 @@ Format.prototype.refresh = function()
 		div.appendChild(label4);
 
 		var dataPanel = div.cloneNode(false);
-		dataPanel.style.display = 'none';
 		this.panels.push(new DataPanel(this, ui, dataPanel));
 		this.container.appendChild(dataPanel);
 
@@ -540,6 +539,7 @@ Format.prototype.refresh = function()
 		
 		addClickHandler(label2, textPanel, idx++);
 		addClickHandler(label3, arrangePanel, idx++);
+		addClickHandler(label4, dataPanel, idx++);
 	}
 };
 
